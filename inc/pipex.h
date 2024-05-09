@@ -6,7 +6,7 @@
 /*   By: amiguel- <amiguel-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 15:41:37 by amiguel-          #+#    #+#             */
-/*   Updated: 2024/05/08 12:11:06 by amiguel-         ###   ########.fr       */
+/*   Updated: 2024/05/09 12:09:17 by amiguel-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,9 @@ int		file_open(char *file, int in_out);
 void	ft_free_tab(char **tab);
 char	*get_env(char *name,  char **env);
 char	*get_path(char *cmd, char **env);
+void	exec(char *cmd, char **env);
+void	child(char **av, int *p_fd, char **env);
+void	parent(char **av, int *p_fd, char **env);
 
 
 #endif
