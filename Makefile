@@ -6,7 +6,7 @@
 #    By: amiguel- <amiguel-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/20 11:42:36 by amiguel-          #+#    #+#              #
-#    Updated: 2024/05/07 10:29:07 by amiguel-         ###   ########.fr        #
+#    Updated: 2024/05/08 10:52:48 by amiguel-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,10 +19,10 @@ CFLAGS = -Werror -Wall -Wextra -fsanitize=address
 RM = rm -rf
 
 SRCS = 	src/pipex.c\
-		src/utils.c\
+		src/pipex_utils.c\
 		libft/libft.a\
 
-SRCS_BONUS = 	src_bonus/pipex_bonus.c\
+#SRCS_BONUS = 	src_bonus/pipex_bonus.c\
 				src_bonus/utils_bonus.c\
 				libft/libft.a\
 

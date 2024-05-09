@@ -6,13 +6,13 @@
 /*   By: amiguel- <amiguel-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 10:55:24 by amiguel-          #+#    #+#             */
-/*   Updated: 2024/05/07 17:05:52 by amiguel-         ###   ########.fr       */
+/*   Updated: 2024/05/08 12:10:57 by amiguel-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/pipex.h"
 
-void	exit(int n)
+void	managexit(int n)
 {
 	if (n == 1)
 		ft_putstr_fd ("./pipex infile cmd cmd outfile\n", 2);
