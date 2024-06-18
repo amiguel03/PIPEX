@@ -6,23 +6,35 @@
 /*   By: amiguel- <amiguel-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 10:32:30 by amiguel-          #+#    #+#             */
-/*   Updated: 2024/05/16 10:40:11 by amiguel-         ###   ########.fr       */
+/*   Updated: 2024/06/18 10:00:36 by amiguel-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/pipex.h"
 
-int	main(int argc, char **argv, char  **env)
+int	main(int argc, char **argv, char **env)
 {
-	t_data	data;
-	
+	int		fd[2];
+	pid_t	pid[2];
+	int		status;
+
 	if (argc != 5)
-		ft_error("Error: invalid number of arguments", 1);
-	ft_memset(&data, 0, sizeof(data));
-	path_split(&data, env);
-	child_one(&data, argv[1], argv[2], env);
-	child_two(&data, argv[4], argv[3], env);
-	data.status = close_wait(&data);
-	ft_free(&data);
-	return (WEXITSTATUS(data.status));
+		therror(ERROR_ARGS);
+	if (pipe(fd) == -1)
+		therror("Error pipe");
+	pid[0] = fork();
+	if (pid[0] == -1)
+		therror(FORK_ERROR);
+	else if (pid[0] == 0)
+		child(argv, env, fd);
+	pid[1] = fork();
+	if (pid[1] < 0)
+		therror(FORK_ERROR);
+	else if (pid[1] == 0)
+		parent(argv, env, fd);
+	close(fd[0]);
+	close(fd[1]);
+	waitpid(pid[0], NULL, 0);
+	waitpid(pid[1], &status, 0);
+	return (WEXITSTATUS(status));
 }

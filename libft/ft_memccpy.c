@@ -1,30 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*   ft_memccpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmateo-t <mmateo-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/06 17:59:56 by mmateo-t          #+#    #+#             */
-/*   Updated: 2021/11/08 16:51:47 by mmateo-t         ###   ########.fr       */
+/*   Created: 2019/11/05 13:33:22 by mmateo-t          #+#    #+#             */
+/*   Updated: 2021/11/08 16:43:17 by mmateo-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_calloc(size_t count, size_t size)
+void	*ft_memccpy(void *dst, const void *src, int c, size_t n)
 {
-	char	*ptr;
-	size_t	i;
+	size_t			i;
+	unsigned char	*ptr;
+	unsigned char	*ptr2;
 
-	ptr = (char *)malloc(count * size);
-	if (!ptr)
-		return (0);
 	i = 0;
-	while (i < (count * size))
+	ptr = (unsigned char *)src;
+	ptr2 = (unsigned char *)dst;
+	while (i < n)
 	{
-		ptr[i] = 0;
+		*ptr2 = *ptr;
+		if (*ptr == (unsigned char)c)
+		{
+			dst += i + 1;
+			return (dst);
+		}
 		i++;
+		ptr++;
+		ptr2++;
 	}
-	return ((void *)ptr);
+	dst = NULL;
+	return (dst);
 }

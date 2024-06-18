@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sergio <sergio@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mmateo-t <mmateo-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/21 23:21:00 by sergio            #+#    #+#             */
-/*   Updated: 2024/01/22 23:09:29 by sergio           ###   ########.fr       */
+/*   Created: 2019/11/05 13:59:48 by mmateo-t          #+#    #+#             */
+/*   Updated: 2021/11/08 16:43:42 by mmateo-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,17 @@
 
 void	*ft_memmove(void *dst, const void *src, size_t len)
 {
-	unsigned char		*d;
-	const unsigned char	*s;
+	unsigned char	*ptr;
+	unsigned char	*ptr2;
 
-	d = (unsigned char *)dst;
-	s = (const unsigned char *)src;
-	if (d == s || len == 0)
-		return (dst);
-	if (d < s)
+	ptr = (unsigned char *)src;
+	ptr2 = (unsigned char *)dst;
+	if (ptr2 > ptr)
 	{
 		while (len--)
-			*d++ = *s++;
+			ptr2[len] = ptr[len];
 	}
 	else
-	{
-		d = d + len - 1;
-		s = s + len - 1;
-		while (len--)
-			*d-- = *s--;
-	}
+		ft_memcpy(ptr2, ptr, len);
 	return (dst);
 }

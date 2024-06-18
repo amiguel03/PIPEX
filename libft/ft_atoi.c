@@ -3,37 +3,51 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sergio <sergio@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mmateo-t <mmateo-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/22 15:26:30 by sergio            #+#    #+#             */
-/*   Updated: 2024/01/22 15:28:30 by sergio           ###   ########.fr       */
+/*   Created: 2019/11/06 17:43:31 by mmateo-t          #+#    #+#             */
+/*   Updated: 2021/11/08 16:52:12 by mmateo-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-long	ft_atoi(const char *str)
+static int	is_negative(int negative)
 {
-	long	result;
-	int		sign;
-	int		i;
+	if (negative != 0)
+	{
+		return (-1);
+	}
+	else
+	{
+		return (1);
+	}
+}
 
-	result = 0;
-	sign = 1;
-	i = 0;
-	while (ft_isspace(str[i]) == 1)
-		i++;
-	if (str[i] == '-')
+int	ft_atoi(const char *str)
+{
+	long int	num;
+	int			negative;
+
+	num = 0;
+	negative = 0;
+	while (*str && (*str == ' ' || *str == '\n' || *str == '\t'
+			|| *str == '\v' || *str == '\f' || *str == '\r'))
+		++str;
+	if (*str == '-' || *str == '+')
 	{
-		sign = -1;
-		i++;
+		if (*str == '-')
+			negative = -1;
+		str++;
 	}
-	else if (str[i] == '+')
-		i++;
-	while (str[i] >= '0' && str[i] <= '9')
+	while (*str && ft_isdigit(*str))
 	{
-		result = result * 10 + (str[i] - '0');
-		i++;
+		num = num * 10 + *str - 48;
+		if (num * is_negative(negative) > 2147483647)
+			return (-1);
+		if (num * is_negative(negative) < -2147483648)
+			return (0);
+		str++;
 	}
-	return (sign * result);
+	return ((int)(num * is_negative(negative)));
 }

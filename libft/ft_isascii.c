@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isascii.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sergio <sergio@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mmateo-t <mmateo-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/21 20:40:19 by sergio            #+#    #+#             */
-/*   Updated: 2024/01/21 20:48:11 by sergio           ###   ########.fr       */
+/*   Created: 2019/11/05 18:26:44 by mmateo-t          #+#    #+#             */
+/*   Updated: 2021/11/08 16:36:13 by mmateo-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	ft_isascii(int c)
 {
-	if (!(c >= 0 && c <= 127))
-		return (0);
-	else
+	if (c >= 0 && c <= 127)
 		return (1);
+	else
+		return (0);
 }

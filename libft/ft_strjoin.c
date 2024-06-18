@@ -3,35 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smarin-a <smarin-a@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmateo-t <mmateo-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/22 17:01:27 by sergio            #+#    #+#             */
-/*   Updated: 2024/03/04 20:48:49 by smarin-a         ###   ########.fr       */
+/*   Created: 2019/11/08 16:02:52 by mmateo-t          #+#    #+#             */
+/*   Updated: 2021/11/08 16:41:04 by mmateo-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strjoin(char *str1, char *str2)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
-	size_t	str1_len;
-	size_t	str2_len;
-	char	*joined_str;
+	int		i;
+	int		j;
+	char	*strjoin;
 
-	str1_len = 0;
-	str2_len = 0;
-	if (str1 != NULL)
-		str1_len = ft_strlen(str1);
-	if (str2 != NULL)
-		str2_len = ft_strlen(str2);
-	joined_str = (char *)malloc(str1_len + str2_len + 1);
-	if (!joined_str)
+	if (!s1 || !s2)
 		return (NULL);
-	if (str1 != NULL)
-		ft_memcpy(joined_str, str1, str1_len);
-	if (str2 != NULL)
-		ft_memcpy(joined_str + str1_len, str2, str2_len);
-	joined_str[str1_len + str2_len] = '\0';
-	free((char *)str1);
-	return (joined_str);
+	i = ft_strlen(s1);
+	j = ft_strlen(s2);
+	strjoin = (char *)malloc(sizeof(char) * (i + j + 1));
+	if (strjoin == NULL)
+		return (strjoin);
+	i = 0;
+	j = 0;
+	while (s1[i])
+	{
+		strjoin[i] = s1[i];
+		i++;
+	}
+	while (s2[j])
+	{
+		strjoin[i + j] = s2[j];
+		j++;
+	}
+	strjoin[i + j] = '\0';
+	return (strjoin);
 }

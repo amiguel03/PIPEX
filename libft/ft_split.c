@@ -3,89 +3,73 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sergio <sergio@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mmateo-t <mmateo-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/22 17:27:11 by sergio            #+#    #+#             */
-/*   Updated: 2024/01/22 17:51:45 by sergio           ###   ########.fr       */
+/*   Created: 2019/11/08 16:59:33 by mmateo-t          #+#    #+#             */
+/*   Updated: 2021/11/08 16:44:21 by mmateo-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static size_t	count_words(const char *str, char value)
+static char	**ft_size(const char *s, char c)
 {
-	size_t	i;
-	size_t	count;
+	char	*tmp;
+	char	**tab;
+	int		i;
 
 	i = 0;
-	count = 0;
-	while (str[i])
+	tmp = (char *)s;
+	while (*tmp)
 	{
-		if (str[i] != value)
-		{
-			count++;
-			while (str[i] != value && str[i])
-				i++;
-		}
-		else if (str[i] == value)
+		while (*tmp == c)
+			tmp++;
+		if (*tmp != '\0')
 			i++;
+		while (*tmp != c && *tmp)
+			tmp++;
 	}
-	return (count);
+	tab = (char **)malloc(sizeof(char *) * (i + 1));
+	if (tab == NULL)
+		return (NULL);
+	tab[i] = NULL;
+	return (tab);
 }
 
-static size_t	get_inti_len(const char *str, char value)
+static char	**ft_fill_tab(const char *s, char c)
 {
 	size_t	len;
+	char	**tab;
+	int		i;
 
+	i = 0;
 	len = 0;
-	while (str[len] != value && str[len])
-		len++;
-	return (len);
-}
-
-static void	free_memory(size_t row, char **array)
-{
-	while (row--)
-		free(array[row]);
-	free(array);
-}
-
-static char	**fill_array(const char *str, char value, char **array, size_t word)
-{
-	size_t	row;
-	size_t	col;
-
-	row = 0;
-	col = 0;
-	while (row < word)
+	tab = ft_size(s, c);
+	if (tab == NULL)
+		return (NULL);
+	while (*s)
 	{
-		while (*(str + col) == value && *(str + col))
-			col++;
-		array[row] = ft_substr(str, col, get_inti_len(&*(str + col), value));
-		if (!*(str + row))
+		while (*s == c)
+			s++;
+		if (*s != '\0')
 		{
-			free_memory(row, array);
-			return (NULL);
+			while (s[len] != c && s[len])
+				len++;
+			tab[i++] = ft_substr(s, 0, len);
+			s = s + len;
 		}
-		while (*(str + col) != value && *(str + col))
-			col++;
-		row++;
+		len = 0;
 	}
-	array[row] = NULL;
-	return (array);
+	tab[i] = NULL;
+	return (tab);
 }
 
-char	**ft_split(const char *str, char value)
+char	**ft_split(char const *s, char c)
 {
-	size_t	word;
-	char	**array;
+	char	**tab;
 
-	if (!str)
+	if (!s)
 		return (NULL);
-	word = count_words(str, value);
-	array = (char **)malloc(sizeof(char *) * (word + 1));
-	if (!array)
-		return (NULL);
-	array = fill_array(str, value, array, word);
-	return (array);
+	tab = ft_fill_tab(s, c);
+	return (tab);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sergio <sergio@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mmateo-t <mmateo-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/21 20:51:06 by sergio            #+#    #+#             */
-/*   Updated: 2024/01/21 22:46:12 by sergio           ###   ########.fr       */
+/*   Created: 2019/11/05 18:13:02 by mmateo-t          #+#    #+#             */
+/*   Updated: 2021/11/08 16:37:40 by mmateo-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ size_t	ft_strlen(const char *str)
 
 	i = 0;
 	while (str[i])
+	{
 		i++;
+	}
 	return (i);
 }

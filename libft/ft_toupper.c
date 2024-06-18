@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_toupper.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sergio <sergio@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mmateo-t <mmateo-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/22 14:18:23 by sergio            #+#    #+#             */
-/*   Updated: 2024/01/22 14:20:23 by sergio           ###   ########.fr       */
+/*   Created: 2019/11/05 18:32:00 by mmateo-t          #+#    #+#             */
+/*   Updated: 2021/11/08 16:41:09 by mmateo-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 int	ft_toupper(int c)
 {
-	if (c > 96 && c < 123)
+	if (c >= 'a' && c <= 'z')
 		return (c - 32);
-	return (c);
+	else
+		return (c);
 }

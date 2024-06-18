@@ -3,29 +3,100 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sergio <sergio@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mmateo-t <mmateo-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/22 17:09:03 by sergio            #+#    #+#             */
-/*   Updated: 2024/01/22 17:16:38 by sergio           ###   ########.fr       */
+/*   Created: 2019/11/08 16:17:09 by mmateo-t          #+#    #+#             */
+/*   Updated: 2021/11/08 16:49:32 by mmateo-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strtrim(char const *str, char const *set)
+static	size_t	ft_strlength(char *str)
 {
-	size_t	str_len;
-	size_t	start;
-	size_t	end;
+	size_t	i;
 
-	if (str == NULL || set == NULL)
+	i = 0;
+	while (str[i])
+	{
+		i++;
+	}
+	return (i);
+}
+
+static	int	start(char *s1, char *set)
+{
+	size_t	i;
+	size_t	j;
+
+	i = 0;
+	while (s1[i])
+	{
+		j = 0;
+		while (set[j])
+		{
+			if (s1[i] == set[j])
+			{
+				break ;
+			}
+			j++;
+		}
+		if (set[j] == '\0')
+			break ;
+		i++;
+	}
+	return (i);
+}
+
+static int	end(char *s1, char *set)
+{
+	size_t	i;
+	size_t	j;
+
+	i = ft_strlength(s1) - 1;
+	while (i > 0)
+	{
+		j = 0;
+		while (set[j])
+		{
+			if (s1[i] == set[j])
+			{
+				break ;
+			}
+			j++;
+		}
+		if (set[j] == '\0')
+			break ;
+		i--;
+	}
+	return (i);
+}
+
+char	*ft_strtrim(char const *s1, char const *set)
+{
+	size_t	i;
+	size_t	count1;
+	size_t	count2;
+	char	*s2;
+
+	if (!s1)
 		return (NULL);
-	str_len = ft_strlen(str);
-	start = 0;
-	while (str[start] && ft_strchr(set, str[start]))
-		start++;
-	end = str_len;
-	while (end > start && ft_strchr(set, str[end - 1]))
-		end--;
-	return (ft_substr(str, start, end - start));
+	i = 0;
+	count1 = start((char *)s1, (char *)set);
+	count2 = end((char *)s1, (char *)set);
+	if (count1 == ft_strlength((char *)s1))
+	{
+		s2 = (char *)malloc(sizeof(char) * 1);
+		s2[0] = '\0';
+		return (s2);
+	}
+	else
+		s2 = (char *)malloc(sizeof(char) * (count2 - count1 + 2));
+	if (s2 == NULL)
+		return (s2);
+	i = 0;
+	while (count1 <= count2)
+		s2[i++] = s1[count1++];
+	s2[i] = '\0';
+	return (s2);
 }

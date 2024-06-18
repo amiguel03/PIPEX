@@ -6,7 +6,7 @@
 #    By: amiguel- <amiguel-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/21 18:06:40 by sergio            #+#    #+#              #
-#    Updated: 2024/05/16 11:02:45 by amiguel-         ###   ########.fr        #
+#    Updated: 2024/06/03 11:32:56 by amiguel-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ NAME = libft.a
 # Compilador a utilizar (gcc, clang, etc)
 CC = gcc
 # Flags de compilacion (agregar los que se necesiten)
-CFLAGS = -Wall -Wextra -Werror 
+CFLAGS = -Wall -Wextra -Werror -g3
 
 #------------------------------------------------------------------------------#
 

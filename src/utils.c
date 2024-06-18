@@ -6,55 +6,62 @@
 /*   By: amiguel- <amiguel-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 10:55:24 by amiguel-          #+#    #+#             */
-/*   Updated: 2024/05/15 10:47:18 by amiguel-         ###   ########.fr       */
+/*   Updated: 2024/06/18 10:01:38 by amiguel-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/pipex.h"
 
-void	ft_error(char *msg, int n_error)
-{
-	perror(msg);
-	exit(n_error);
-}
-
-void	free_mat(char **mat)
+int	check_env(char **env)
 {
 	int	i;
 
 	i = 0;
-	if (!mat)
-		return ;
-	while (mat[i])
+	while (env[i])
 	{
-		free(mat[i]);
-		mat[i] = NULL;
+		if (ft_strncmp(env[i], "PATH=", 5) == 0)
+			return (i);
+		i ++;
+	}
+	therror(ENV_ERROR);
+	exit(EXIT_FAILURE);
+}
+
+char	*look_path(char *cmd, char **envp)
+{
+	int		i;
+	int		env;
+	char	**paths;
+	char	*path;
+	char	*aux;
+
+	if (ft_strchr(cmd, '/'))
+		return (cmd);
+	env = check_env(envp);
+	paths = ft_split(envp[env] + 5, ':');
+	i = 0;
+	while (paths[i])
+	{
+		aux = ft_strjoin(paths[i], "/");
+		path = ft_strjoin(aux, cmd);
+		free(aux);
+		if (access(path, F_OK) == 0)
+			return (path);
 		i++;
 	}
+	return (NULL);
 }
 
-void	ft_pipe(t_data *data)
+void	ft_execve(char *argv, char **env)
 {
-	if (pipe(data->pipe_fd) == -1)
-		perror("Error : pipe not created\n");
-}
+	char	**cmd;
 
-void	ft_free(t_data	*data)
-{
-	free(data->valid_path);
-	free_mat (data->matrix_cmd);
-	free(data->matrix_cmd);
-	free_mat (data->matrix_path);
-	free(data->matrix_path);
-}
-
-int	close_wait(t_data *data)
-{
-	int	status;
-
-	close(data->pipe_fd[0]);
-	close(data->pipe_fd[1]);
-	waitpid (data->pid_child_one, NULL, 0);
-	waitpid (data->pid_child_two, &status, 0);
-	return (status);
+	cmd = ft_split(argv, ' ');
+	if (cmd == NULL)
+	{
+		therror(ENV_ERROR);
+		return ;
+	}
+	if (execve(look_path(cmd[0], env), cmd, env) == -1)
+		therror(CMD_ERROR);
 }
