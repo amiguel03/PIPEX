@@ -6,13 +6,13 @@
 /*   By: amiguel- <amiguel-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 10:44:08 by amiguel-          #+#    #+#             */
-/*   Updated: 2024/06/18 10:02:37 by amiguel-         ###   ########.fr       */
+/*   Updated: 2024/07/08 11:03:47 by amiguel-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/pipex.h"
 
-int	file_in(char *argv, int x)
+int	file_in(char *argv, int x, int fd)
 {
 	int	file;
 
@@ -22,7 +22,10 @@ int	file_in(char *argv, int x)
 	if (x == 2)
 		file = open(argv, O_CREAT | O_TRUNC | O_WRONLY, 0644);
 	if (file == -1)
+	{
+		close(fd);
 		therror(FILE_ERROR);
+	}
 	return (file);
 }
 
@@ -32,7 +35,7 @@ void	child(char *argv[], char **env, int *fd)
 
 	close(fd[0]);
 	infile = 0;
-	infile = file_in(argv[1], 1);
+	infile = file_in(argv[1], 1, fd[1]);
 	if (!infile)
 		therror(IN_ERROR);
 	dup2(fd[1], STDOUT_FILENO);
@@ -48,7 +51,7 @@ void	parent(char *argv[], char **env, int *fd)
 
 	close(fd[1]);
 	outfile = 0;
-	outfile = file_in(argv[4], 2);
+	outfile = file_in(argv[4], 2, fd[0]);
 	if (outfile < 0)
 		therror(OUT_ERROR);
 	dup2(fd[0], STDIN_FILENO);
