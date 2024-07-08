@@ -6,7 +6,7 @@
 /*   By: amiguel- <amiguel-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 10:44:08 by amiguel-          #+#    #+#             */
-/*   Updated: 2024/07/08 11:22:08 by amiguel-         ###   ########.fr       */
+/*   Updated: 2024/07/08 11:36:10 by amiguel-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ void	child(char *argv[], char **env, int *fd)
 	int	infile;
 
 	close(fd[0]);
-	infile = 0;
 	infile = file_in(argv[1], 1, fd[1]);
 	dup2(fd[1], STDOUT_FILENO);
 	close(fd[1]);
@@ -48,7 +47,6 @@ void	parent(char *argv[], char **env, int *fd)
 	int	outfile;
 
 	close(fd[1]);
-	outfile = 0;
 	outfile = file_in(argv[4], 2, fd[0]);
 	dup2(fd[0], STDIN_FILENO);
 	close(fd[0]);
