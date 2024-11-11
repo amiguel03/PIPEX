@@ -6,7 +6,7 @@
 /*   By: amiguel- <amiguel-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 10:39:06 by amiguel-          #+#    #+#             */
-/*   Updated: 2024/11/04 13:31:31 by amiguel-         ###   ########.fr       */
+/*   Updated: 2024/11/05 11:44:08 by amiguel-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	ft_child(t_pipex_bonus *bonus, char *argv[], char **env, int *fd)
 	bonus->index++;
 }
 
-void ft_child_mid(t_pipex_bonus *bonus, char *argv[], char **env, int *fd)
+void	ft_child_mid(t_pipex_bonus *bonus, char *argv[], char **env, int *fd)
 {
 	bonus->pid[bonus->index] = fork();
 	if (bonus->pid[bonus->index] == -1)
@@ -72,7 +72,6 @@ void ft_child_mid(t_pipex_bonus *bonus, char *argv[], char **env, int *fd)
 	close(fd[1]);
 	bonus->index++;
 }
-
 
 void	ft_child_last(t_pipex_bonus *bonus, char *argv[], char **env, int *fd)
 {
@@ -98,4 +97,3 @@ void	ft_child_last(t_pipex_bonus *bonus, char *argv[], char **env, int *fd)
 	close(fd[0]);
 	close(fd[1]);
 }
-

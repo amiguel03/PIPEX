@@ -6,7 +6,7 @@
 /*   By: amiguel- <amiguel-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 10:39:44 by amiguel-          #+#    #+#             */
-/*   Updated: 2024/11/04 12:29:34 by amiguel-         ###   ########.fr       */
+/*   Updated: 2024/11/05 11:44:36 by amiguel-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	check_env(char **env)
 	{
 		if (ft_strncmp(env[i], "PATH=", 5) == 0)
 			return (i);
-		i ++;
+		i++;
 	}
 	therror(ENV_ERROR);
 	exit(EXIT_FAILURE);
@@ -65,4 +65,3 @@ void	ft_execve(char *argv, char **env)
 	if (execve(look_path(cmd[0], env), cmd, env) == -1)
 		therror(CMD_ERROR);
 }
-
